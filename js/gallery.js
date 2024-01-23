@@ -64,51 +64,49 @@ const images = [
     },
   ];
 
- const galleryElem = document.querySelector('.gallery');
- const markup = images.map ((image) => {
-    return ` 
-    <li class="gallery-item">
-    <a class="gallery-link" href="${image.preview}">
-      <img
-        class="gallery-image"
-        src="${image.preview}"
-        data-source="${image.original}"
-        alt="${image.description}"/>
-    </a>
-    </li>`
-    })
-    .join ('');  
-    galleryElem.innerHTML = markup;   
-
-    galleryElem.addEventListener('click', (el) => {
-    if  (el.target === el.currentTarget){
-        return;
-    }
-    el.preventDefault();
-
+  const galleryElem = document.querySelector('.gallery');
+  const markup = images.map ((image) => {
+     return `
+     <li class="gallery-item">
+     <a class="gallery-link" href="${image.preview}">
+       <img
+         class="gallery-image"
+         src="${image.preview}"
+         data-source="${image.original}"
+         alt="${image.description}"/>
+     </a>
+     </li>`
+     })
+     .join ('');
+     galleryElem.innerHTML = markup;
+     galleryElem.addEventListener('click', (el) => {
+     if  (el.target === el.currentTarget){
+         return;
+     }
+     el.preventDefault();
     const liElem = el.target.closest ('li');
-    const id = liElem.dataset.id;
-    const image = images.find(el => el.id === id);
 
-    const instance = basicLightbox.create(`<img src="${image.original}" >`);
+    const bigImg = liElem.querySelector('img').dataset.source;
+
+    const instance = basicLightbox.create(`<img src="${bigImg}" width="1112" height="640" >`);
     instance.show();
-    });
-    
-    const modal = basicLightbox.create('content', {
+     });
+     
+     const modal = basicLightbox.create('content', {
 onShow: instance => {
-    document.addEventListener('keydown', onModalClose);
-  },
+     document.addEventListener('keydown', onModalClose);
+   },
 onClose: instance => {
-    document.removeEventListener('keydown', onModalClose);
-  },
-});
-
+     document.removeEventListener('keydown', onModalClose);
+   },
+ });
 function onModalClose (el) {
-    if (el.code === 'Escape'){
-    modal.close();
-    }
-};
-modal.show();
+     if (el.code === 'Escape'){
+     modal.close();
+     }
+ };
+ modal.show();
+
 
 
 

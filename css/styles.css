@@ -14,8 +14,6 @@ body {
 }
 
 .gallery-item {
-    justify-content: center;
-    align-items: flex-start; 
     list-style: none;
     width: calc((100% - 48px) / 3) ; 
 }
